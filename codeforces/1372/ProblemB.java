@@ -2,8 +2,6 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +9,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemB {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -34,15 +32,26 @@ public class ProblemA {
 
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
-            int n = in.nextInt();
-            int k = in.nextInt();
-
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+            long n = in.nextLong();
+            if(n%2 == 0) {
+                out.println(n/2 + " " + n/2);
             } else {
-                out.println("NO");
+                int flag = 0;
+                long a = 0;
+                long b = 0;
+                for(long i = 2; i<=Math.sqrt(n);i++) {
+                    if(n%i==0) {
+                        long rem = n/i;
+                        a = rem;
+                        b = n-rem;
+                        flag = 1;
+                    }
+                }
+                if(flag == 0) {
+                    out.println(1 + " " + (n-1));
+                } else {
+                    out.println(a + " " + b);
+                }
             }
         }
     }

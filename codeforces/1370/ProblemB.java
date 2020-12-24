@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +12,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemB {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -35,14 +36,23 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
-
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
-            } else {
-                out.println("NO");
+            Stack<Integer> oddIndex = new Stack<>();
+            Stack<Integer> evenIndex = new Stack<>();
+            for(int i=1;i<=2*n;i++) {
+                int a = in.nextInt();
+                if(a%2==0) {
+                    evenIndex.add(i);
+                } else {
+                    oddIndex.add(i);
+                }
+            }
+            while(n>1) {
+                if(oddIndex.size()>=2) {
+                    out.println(oddIndex.pop() + " " + oddIndex.pop());
+                } else if(evenIndex.size()>=2) {
+                    out.println(evenIndex.pop() + " " + evenIndex.pop());
+                }
+                n--;
             }
         }
     }

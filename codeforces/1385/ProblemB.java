@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemB {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -35,15 +35,22 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
-
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
-            } else {
-                out.println("NO");
+            int i;
+            String ans = "";
+            Map<Integer, Integer> hash = new HashMap<>();
+            int count = 0;
+            for(i=0;i<2*n;i++) {
+                int a = in.nextInt();
+                if(!hash.containsKey(a)) {
+                    hash.put(a, 1);
+                    ans += a;
+                    count++;
+                    if(count!=n) {
+                        ans += " ";
+                    }
+                }
             }
+            out.println(ans);
         }
     }
 

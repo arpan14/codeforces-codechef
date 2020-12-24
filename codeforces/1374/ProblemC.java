@@ -2,8 +2,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +10,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemC {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -35,15 +34,25 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
+            String s = in.next();
 
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
-            } else {
-                out.println("NO");
+            Stack<Character> st = new Stack<>();
+
+            int i;
+            int ans = 0;
+            for(i=0;i<n;i++) {
+                Character curr = s.charAt(i);
+                if(curr == '(') {
+                    st.push(curr);
+                } else {
+                    if(!st.isEmpty()) {
+                        st.pop();
+                    } else {
+                        ans++;
+                    }
+                }
             }
+            out.println(ans);
         }
     }
 

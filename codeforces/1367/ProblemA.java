@@ -34,16 +34,14 @@ public class ProblemA {
 
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
-            int n = in.nextInt();
-            int k = in.nextInt();
-
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
-            } else {
-                out.println("NO");
+            String b = in.next();
+            String ans = "";
+            ans += b.charAt(0);
+            for(int i=1;i<b.length()-1;i+=2) {
+                ans += b.charAt(i);
             }
+            ans += b.charAt(b.length()-1);
+            out.println(ans);
         }
     }
 

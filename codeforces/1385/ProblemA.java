@@ -2,8 +2,6 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -34,16 +32,40 @@ public class ProblemA {
 
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
-            int n = in.nextInt();
-            int k = in.nextInt();
+            long x = in.nextLong();
+            long y = in.nextLong();
+            long z = in.nextLong();
 
-            if(k==1 && n%2!=0) {
+            if(x==y && y==z) {
                 out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+                out.println(x + " " + y + " " + z);
             } else {
-                out.println("NO");
+                if(x==y) {
+                    if(z>x) {
+                        out.println("NO");
+                    } else {
+                        out.println("YES");
+                        out.println(x + " " + z + " " + z);
+                    }
+                } else if(y==z) {
+                    if(x>y) {
+                        out.println("NO");
+                    } else {
+                        out.println("YES");
+                        out.println(y + " " + x + " " + x);
+                    }
+                } else if(x==z) {
+                    if(y>z) {
+                        out.println("NO");
+                    } else {
+                        out.println("YES");
+                        out.println(x + " " + y + " " + y);
+                    }
+                } else {
+                    out.println("NO");
+                }
             }
+
         }
     }
 

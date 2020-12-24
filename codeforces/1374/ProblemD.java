@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemD {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -35,14 +35,36 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
+            long k = in.nextLong();
+            long a[] = new long[n];
+            int i;
 
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+            long maxKey = -1;
+            long maxCount = -1;
+
+            Map<Long, Integer> hash = new HashMap<>();
+            for(i=0;i<n;i++) {
+                a[i] = in.nextLong();
+                long hashkey = (a[i]%k) == 0 ? 0 : k-(a[i]%k);
+                hash.put(hashkey, hash.getOrDefault(hashkey, 0) + 1);
+
+                if(hashkey == 0) continue;
+
+                if(hash.get(hashkey) > maxCount) {
+                    maxKey = hashkey;
+                    maxCount = hash.get(hashkey);
+                } else if(hash.get(hashkey) == maxCount && hashkey> maxKey) {
+                    maxKey = hashkey;
+                }
+            }
+            if(maxCount == 1) {
+                out.println(maxKey+1);
+            } else if(maxCount==-1) {
+                out.println(0);
             } else {
-                out.println("NO");
+                long ans = (maxCount-1)*k;
+                ans += maxKey+1;
+                out.println(ans);
             }
         }
     }

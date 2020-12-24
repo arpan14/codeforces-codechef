@@ -2,8 +2,6 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -35,14 +33,31 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
+            int x = in.nextInt();
+            int a[] = new int[n];
+            int ans = -1;
+            int i,j;
+            int minIndex = n+1;
+            int maxIndex = -1;
+            for(i=0;i<n;i++) {
+                a[i] = in.nextInt();
+                if(a[i]%x !=0) {
+                    if(i>maxIndex) {
+                        maxIndex = i;
+                    }
+                    if(i<minIndex) {
+                        minIndex = i;
+                    }
+                }
+            }
 
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+            if(maxIndex==-1 || minIndex==n+1) {
+                // all elements are divisible by x
+                out.println(-1);
             } else {
-                out.println("NO");
+                int totalElements = maxIndex-minIndex+1;
+                totalElements = Math.max(totalElements+minIndex, totalElements+n-maxIndex-1);
+                out.println(totalElements);
             }
         }
     }

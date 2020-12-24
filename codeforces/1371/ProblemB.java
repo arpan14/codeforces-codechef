@@ -2,8 +2,6 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +9,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemB {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -34,15 +32,36 @@ public class ProblemA {
 
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
-            int n = in.nextInt();
-            int k = in.nextInt();
-
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+            long n = in.nextLong();
+            long r = in.nextLong();
+            if(r==1) {
+                out.println(1);
             } else {
-                out.println("NO");
+                if(n>r) {
+                    long ans = 0;
+                    long temp = r;
+                    if(temp%2==0) {
+                        ans = temp/2;
+                        ans = ans * (temp+1);
+                    } else {
+                        ans = (temp+1)/2;
+                        ans = ans * (temp);
+                    }
+                    out.println(ans);
+                } else {
+                    long ans = 0;
+                    // total shapes
+                    long temp = n-1;
+                    if(temp%2==0) {
+                        ans = temp/2;
+                        ans = ans * (temp+1);
+                    } else {
+                        ans = (temp+1)/2;
+                        ans = ans * (temp);
+                    }
+                    ans++;
+                    out.println(ans);
+                }
             }
         }
     }

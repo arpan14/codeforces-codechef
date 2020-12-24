@@ -2,8 +2,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +10,7 @@ import java.io.InputStreamReader;
 /**
  * Template by Arpan Mishra (arpan_)
  */
-public class ProblemA {
+public class ProblemC {
     public static void main(String[] args) {
         final InputStream inputStream = System.in;
         final OutputStream outputStream = System.out;
@@ -35,14 +34,59 @@ public class ProblemA {
         // Contains all core logic for each test case
         public void execute(final InputReader in, final PrintWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
+            int a[] = new int[n];
+            int i;
+            int flag = 0;
+            for(i=0;i<n;i++) {
+                a[i] = in.nextInt();
+            }
 
-            if(k==1 && n%2!=0) {
-                out.println("YES");
-            } else if(n%k==0) {
-                out.println("YES");
+            if(n<=2) {
+                out.println(0);
+                return;
+            }
+            for(i=1;i<n;i++) {
+                if(a[i]>=a[i-1]) {
+                    // strictly increasing
+                    flag = 1;
+                } else {
+                    flag = 0;
+                    break;
+                }
+            }
+            int index = -1;
+            if(flag == 0) {
+                for(i=n-1;i>0;i--) {
+                    if(a[i]<=a[i-1]) {
+                        // strictly decreasing
+                        flag = 2;
+                    } else {
+                        flag = 0;
+                        index = i;
+                        break;
+                    }
+                }
+                if(flag == 0) {
+                    for(i=index;i>0;i--) {
+                        if(a[i]>=a[i-1]) {
+                            continue;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(flag!=0) {
+                // strictly increasing or decreasing
+                out.println(0);
             } else {
-                out.println("NO");
+                if(i==0) {
+                    //single peak
+                    out.println(0);
+                } else {
+                    out.println(i);
+                }
             }
         }
     }
